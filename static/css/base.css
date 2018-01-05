@@ -35,6 +35,12 @@ body{
 .xq-right{
     text-align: right;
 }
+.xq-left{
+    text-align: left;
+}
+.xq-center{
+    text-align: center;
+}
 .comment{
     width: 660px;
     margin: auto;
@@ -42,4 +48,5 @@ body{
 .anwers{
     width: 620px;
     margin: auto;
+    padding-bottom: 50px;
 }

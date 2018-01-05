@@ -12,7 +12,7 @@ method = ['GET', 'POST']
 @app.route('/', methods=method)
 @app.route('/index/', methods=method)
 def hello_world():
-    qt = Question.query.all()
+    qt = Question.query.order_by(db.desc('id')).all()
     return render_template('index.html', content=qt)
 
 
@@ -33,17 +33,20 @@ def login():
 
 @app.route('/add_anwers/', methods=['POST'])
 def add_anwers():
-    anwer_content = request.form.get('anwer_content')
-    question_id = request.form.get('question_id')
-    anwer=Anwers(content=anwer_content)
     s_name=session.get('username')
-    user=User.query.filter(User.name==s_name).first()
-    anwer.author=user
-    question=Question.query.filter(Question.id==question_id).first()
-    anwer.question=question
-    db.session.add(anwer)
-    db.session.commit()
-    return redirect(url_for('content',list_id=question_id))
+    if s_name:
+        anwer_content = request.form.get('anwer_content')
+        question_id = request.form.get('question_id')
+        anwer=Anwers(content=anwer_content)
+        user=User.query.filter(User.name==s_name).first()
+        anwer.author=user
+        question=Question.query.filter(Question.id==question_id).first()
+        anwer.question=question
+        db.session.add(anwer)
+        db.session.commit()
+        return redirect(url_for('content',list_id=question_id))
+    else:
+        return render_template('login.html',content='请先登录后在进行评论')
 
 
 @app.route('/logout/')
@@ -56,7 +59,7 @@ def logout():
 def quest():
     see = session.get('username')
     if not see:
-        return redirect(url_for('login'))
+        return render_template('login.html',content='请先登录后在发布问题')
     else:
         if request.method == 'GET':
             return render_template('question.html')
@@ -74,7 +77,6 @@ def quest():
 @app.route('/reg/', methods=method)
 def reg():
     if request.method == 'GET':
-        print('get')
         return render_template('reg.html')
     else:
         name = request.form.get('username')
@@ -98,8 +100,8 @@ def reg():
 def content(list_id):
     if request.method == 'GET':
         question = Question.query.filter(Question.id == list_id).first()
-        print(question.author.name)
-        return render_template('content.html', qt=question)
+        anwers=Anwers.query.order_by('id').filter(Anwers.question_id==list_id).all()
+        return render_template('content.html', qt=question,comment=anwers)
 
 
 @app.context_processor

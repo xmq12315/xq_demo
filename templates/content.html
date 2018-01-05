@@ -42,18 +42,20 @@
         </form>
     </div>
     {% if comment %}
-        <hr>
-        <div class="anwers ">
-            <div class="anwer-content">
-                <p>
-                    太厉害了 学习了 感谢分享
-                </p>
+        {% for i in comment %}
+            <hr>
+            <div class="anwers ">
+                <div class="anwer-content">
+                    <p>
+                        {{ i.content }}
+                    </p>
+                </div>
+                <div class="anwer-info xq-right">
+                    <span>{{ i.author.name }}</span>
+                    <span>{{ i.create_time }}</span>
+                </div>
             </div>
-            <div class="anwer-info xq-right">
-                <span>xmq12315</span>
-                <span>2018年1月4日</span>
-            </div>
-        </div>
+        {% endfor %}
     {% endif %}
 
 {% endblock %}
