@@ -31,11 +31,11 @@ def login():
             return u'用户名或密码错误'
 
 
-@app.route('/add_anwers/', methods=method[1])
-def anwers():
-    content = request.form.get('content')
+@app.route('/add_anwers/', methods=['POST'])
+def add_anwers():
+    anwer_content = request.form.get('anwer_content')
     question_id = request.form.get('question_id')
-    anwer=Anwers(content=content)
+    anwer=Anwers(content=anwer_content)
     s_name=session.get('username')
     user=User.query.filter(User.name==s_name).first()
     anwer.author=user
@@ -43,7 +43,7 @@ def anwers():
     anwer.question=question
     db.session.add(anwer)
     db.session.commit()
-    return redirect(url_for('content',question_id=question_id))
+    return redirect(url_for('content',list_id=question_id))
 
 
 @app.route('/logout/')

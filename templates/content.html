@@ -23,7 +23,6 @@
         {% endif %}
     </div>
     <div class="comment">
-        <form action="" method="post">
             <div class="form-group">
                 <h4>
                     <b>
@@ -32,12 +31,13 @@
                     </b>
                 </h4>
             </div>
+        <form action="{{ url_for('add_anwers') }}" method="post">
             <div class="form-group">
-                <input  class="form-control" type="text" name="content">
-                <input type="text" name="question_id" value="{{ qt.id }}">
+                <input  class="form-control" type="text" name="anwer_content">
+                <input type="hidden" name="question_id" value="{{ qt.id }}">
             </div>
             <div class="form-group xq-right">
-                <button class="btn btn-primary">提 交</button>
+                <button type="submit" class="btn btn-primary">提 交</button>
             </div>
         </form>
     </div>
