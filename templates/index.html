@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}首页{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/index.css') }}">
+{% endblock %}
+{% block body %}
+    <div>
+        <ul>
+          {% for i in content  %}
+            <li class="qt-list">
+                <div class="xq_img">
+                   <img src="http://bpic.588ku.com//element_origin_min_pic/17/06/08/dd729cb9adf0d382488ef37b79623931.jpg" alt="">
+{#                   <img src="{{ url_for('static',filename='img/logo.png') }}" alt="">#}
+                </div>
+                <div class="xq_content">
+                        <p><a class="title-link" href="{{ url_for('content',list_id=i.id) }}">{{ i.title }}</a></p>
+                        <p>{{ i.content[:200] }}</p>
+                        <p class="qt-info">{{ i.create_time }}</p>
+                </div>
+            </li>
+              <hr>
+        {% endfor %}
+        </ul>    
+    </div>
+
+{% endblock %}

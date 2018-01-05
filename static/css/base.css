@@ -1,0 +1,45 @@
+body{
+    background: #f3f3f3;
+}
+.content-xq{
+    background: #fff;
+    width: 750px;
+    margin: 0 auto;
+    padding: 5px;
+}
+.xq_title{
+    text-align: center;
+    color: red;
+    font-weight: 900;
+}
+.list-title h3{
+    text-align: center;
+    font-weight: 900;
+}
+.list-info{
+    text-align: center;
+    font-weight: bold;
+}
+.list-info span{
+    margin-left: 5px;
+}
+.list-content{
+    padding-bottom: 10px;
+}
+.list-content p{
+   line-height: 200%;
+}
+.list-main{
+    margin: 10px;
+}
+.xq-right{
+    text-align: right;
+}
+.comment{
+    width: 660px;
+    margin: auto;
+}
+.anwers{
+    width: 620px;
+    margin: auto;
+}

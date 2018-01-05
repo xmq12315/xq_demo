@@ -1,0 +1,11 @@
+        .q-content{
+            text-align: right;
+            margin: auto;
+            padding-top: 30px;
+            width: 90%;
+        }
+        .xq_title{
+            text-align: center;
+            font-weight: 900;
+            color: red;
+        }

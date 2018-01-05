@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}详情{% endblock %}
+{% block head %}
+
+{% endblock %}
+{% block body %}
+    <div class="list-main">
+        {% if qt %}
+            <div class="list-title">
+                <h3>{{ qt.title }}</h3>
+            </div>
+            <div class="list-info">
+                <p>
+                    <span>作者：{{ qt.author.name }}</span>
+                    <span>发布时间：{{ qt.create_time }}</span>
+                </p>
+            </div>
+            <div class="list-content">
+                <hr>
+                <p>{{ qt.content }}</p>
+                <hr>
+            </div>
+        {% endif %}
+    </div>
+    <div class="comment">
+        <form action="" method="post">
+            <div class="form-group">
+                <h4>
+                    <b>
+                        <span>评论</span>
+                        <span>（1）：</span>
+                    </b>
+                </h4>
+            </div>
+            <div class="form-group">
+                <input  class="form-control" type="text">
+            </div>
+            <div class="form-group xq-right">
+                <button class="btn btn-primary">提 交</button>
+            </div>
+        </form>
+    </div>
+    {% if comment %}
+        <hr>
+        <div class="anwers ">
+            <div class="anwer-content">
+                <p>
+                    太厉害了 学习了 感谢分享
+                </p>
+            </div>
+            <div class="anwer-info xq-right">
+                <span>xmq12315</span>
+                <span>2018年1月4日</span>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}

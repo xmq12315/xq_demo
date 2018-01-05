@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}问答页面{% endblock %}
+{% block head %}
+    <style>
+        .q-content{
+            text-align: right;
+            margin: auto;
+            padding-top: 30px;
+            width: 90%;
+        }
+        .xq_title{
+            text-align: center;
+            color: red;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <h3 class="xq_title">发布问答</h3>
+    <div class="q-content">
+        <form action="" method="post">
+            <div class="form-group">
+                <input class="form-control" name="q-title" type="text" placeholder="请提交问题标题">
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" name="q-content" id=""  rows="10" placeholder="请输入问题内容"></textarea>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit" value="">提 交</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

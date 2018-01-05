@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}注册{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/login_reg.css') }}">
+{% endblock %}
+{% block body %}
+    <h3 class="xq_title">注 册</h3>
+
+        <div class="reg">
+                <form action="" method="post">
+                      <div class="form-group">
+                        <input type="text" name="telephone" class="form-control" id="exampleInputEmail1" placeholder="手机号">
+                      </div>
+                      <div class="form-group">
+                        <input type="text" name="username" class="form-control" id="exampleInputEmail1" placeholder="用户名">
+                      </div>
+                      <div class="form-group">
+                        <input type="password" name="password1" class="form-control" id="exampleInputPassword1" placeholder="密码">
+                      </div>
+                      <div class="form-group">
+                        <input type="password" name="password2" class="form-control" id="exampleInputPassword1" placeholder="重复密码">
+                      </div>
+                      <button type="submit" class="btn btn-default btn-block btn-primary">注 册</button>
+                </form>
+        </div>
+{% endblock %}
