@@ -19,6 +19,7 @@ class Question(db.Model):
     content = db.Column(db.Text, nullable=False)
     create_time = db.Column(db.DateTime, default=datetime.now)
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
     author = db.relationship('User', backref=db.backref('questions'))
 
 
