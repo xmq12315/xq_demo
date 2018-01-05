@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, url_for, session, redirect
 from exts import db
-from models import User, Question
+from models import User, Question, Anwers
 import config
 
 app = Flask(__name__)
@@ -29,6 +29,21 @@ def login():
             return redirect(url_for('hello_world'))
         else:
             return u'用户名或密码错误'
+
+
+@app.route('/add_anwers/', methods=method[1])
+def anwers():
+    content = request.form.get('content')
+    question_id = request.form.get('question_id')
+    anwer=Anwers(content=content)
+    s_name=session.get('username')
+    user=User.query.filter(User.name==s_name).first()
+    anwer.author=user
+    question=Question.query.filter(Question.id==question_id).first()
+    anwer.question=question
+    db.session.add(anwer)
+    db.session.commit()
+    return redirect(url_for('content',question_id=question_id))
 
 
 @app.route('/logout/')

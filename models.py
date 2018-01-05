@@ -28,6 +28,7 @@ class Anwers(db.Model):
     __table_args__ = {'mysql_collate': 'utf8_general_ci'}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     content = db.Column(db.Text, nullable=False)
+    create_time=db.Column(db.DateTime,default=datetime.now)
     question_id = db.Column(db.Integer, db.ForeignKey('question.id'))
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
