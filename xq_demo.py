@@ -24,7 +24,7 @@ def login():
     else:
         telephone = request.form.get('telephone')
         password = request.form.get('password')
-        pwd = xqdef.PwdToMd5(password)
+        pwd = xqdef.PwdToSha(password)
         user = User.query.filter(User.telephone == telephone , User.password == pwd).first()
         if user:
             session['username'] = user.name
@@ -90,7 +90,7 @@ def reg():
             return u'手机号已被注册，请更换手机号'
         else:
             if password1 == password2:
-                pwd = xqdef.PwdToMd5(password1)
+                pwd = xqdef.PwdToSha(password1)
                 user = User(name=name, telephone=telephone, password=pwd)
                 db.session.add(user)
                 db.session.commit()
@@ -103,7 +103,7 @@ def reg():
 def content(list_id):
     if request.method == 'GET':
         question = Question.query.filter(Question.id == list_id).first()
-        anwers = Anwers.query.order_by('id').filter(Anwers.question_id == list_id).all()
+        anwers = Anwers.query.order_by(db.desc('id')).filter(Anwers.question_id == list_id).all()
         return render_template('content.html', qt=question, comment=anwers)
 
 
