@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, url_for, session, redirect
 from exts import db
 from models import User, Question, Anwers
+import xqdef
 import config
 
 app = Flask(__name__)
@@ -23,30 +24,31 @@ def login():
     else:
         telephone = request.form.get('telephone')
         password = request.form.get('password')
-        user = User.query.filter(User.telephone == telephone and User.password == password).first()
+        pwd = xqdef.PwdToMd5(password)
+        user = User.query.filter(User.telephone == telephone , User.password == pwd).first()
         if user:
             session['username'] = user.name
             return redirect(url_for('hello_world'))
         else:
-            return u'用户名或密码错误'
+            return render_template('login.html',content='用户名或密码错误')
 
 
 @app.route('/add_anwers/', methods=['POST'])
 def add_anwers():
-    s_name=session.get('username')
+    s_name = session.get('username')
     if s_name:
         anwer_content = request.form.get('anwer_content')
         question_id = request.form.get('question_id')
-        anwer=Anwers(content=anwer_content)
-        user=User.query.filter(User.name==s_name).first()
-        anwer.author=user
-        question=Question.query.filter(Question.id==question_id).first()
-        anwer.question=question
+        anwer = Anwers(content=anwer_content)
+        user = User.query.filter(User.name == s_name).first()
+        anwer.author = user
+        question = Question.query.filter(Question.id == question_id).first()
+        anwer.question = question
         db.session.add(anwer)
         db.session.commit()
-        return redirect(url_for('content',list_id=question_id))
+        return redirect(url_for('content', list_id=question_id))
     else:
-        return render_template('login.html',content='请先登录后在进行评论')
+        return render_template('login.html', content='请先登录后在进行评论')
 
 
 @app.route('/logout/')
@@ -59,7 +61,7 @@ def logout():
 def quest():
     see = session.get('username')
     if not see:
-        return render_template('login.html',content='请先登录后在发布问题')
+        return render_template('login.html', content='请先登录后在发布问题')
     else:
         if request.method == 'GET':
             return render_template('question.html')
@@ -88,7 +90,8 @@ def reg():
             return u'手机号已被注册，请更换手机号'
         else:
             if password1 == password2:
-                user = User(name=name, telephone=telephone, password=password1)
+                pwd = xqdef.PwdToMd5(password1)
+                user = User(name=name, telephone=telephone, password=pwd)
                 db.session.add(user)
                 db.session.commit()
                 return redirect(url_for('hello_world'))
@@ -100,8 +103,8 @@ def reg():
 def content(list_id):
     if request.method == 'GET':
         question = Question.query.filter(Question.id == list_id).first()
-        anwers=Anwers.query.order_by('id').filter(Anwers.question_id==list_id).all()
-        return render_template('content.html', qt=question,comment=anwers)
+        anwers = Anwers.query.order_by('id').filter(Anwers.question_id == list_id).all()
+        return render_template('content.html', qt=question, comment=anwers)
 
 
 @app.context_processor
