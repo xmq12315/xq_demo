@@ -106,7 +106,14 @@ def content(list_id):
         anwers = Anwers.query.order_by(db.desc('id')).filter(Anwers.question_id == list_id).all()
         return render_template('content.html', qt=question, comment=anwers)
 
-
+@app.route('/upload/',methods=method)
+def upload():
+    if request.method=='GET':
+        return render_template('upload.html')
+    else:
+        file=request.files['file']
+        print(file.filename)
+        return file.filename
 @app.context_processor
 def username():
     username = session.get('username')
@@ -115,4 +122,4 @@ def username():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(debug=True)
