@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+{% block head %}
+        <script>
+                $(document).ready(function() {
+                    $("#myimg").attr("src", '/img/logo.png');
+                    $("#myfile").change(function () {
+                        var objUrl = getObjectURL(this.files[0]) ;
+                        alert(window.createObjectURl(objUrl))
+                        if (objUrl)
+                        {
+                           $("#myimg").attr("src", objUrl);
+                            $("#myimg").removeClass("hide");
+                        }
+                    })
+                })
+                //建立一個可存取到該file的url
+            function getObjectURL(file)
+            {
+                var url = null ;
+                if (window.createObjectURL!=undefined)
+                { // basic
+                    url = window.createObjectURL(file) ;
+                }
+                else if (window.URL!=undefined)
+                {
+                    // mozilla(firefox)
+                    url = window.URL.createObjectURL(file) ;
+                }
+                else if (window.webkitURL!=undefined) {
+                    // webkit or chrome
+                    url = window.webkitURL.createObjectURL(file) ;
+                }
+                return url ;
+            }
+        </script>
+{% endblock %}
+{% block body %}
+    <div class="xq-center">
+        <form action="" method="post">
+            <div class="form-group">
+                <label>qw</label>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -114,6 +114,11 @@ def upload():
         file=request.files['file']
         print(file.filename)
         return file.filename
+
+@app.route('/info/')
+def xq_info():
+    return render_template('info.html')
+
 @app.context_processor
 def username():
     username = session.get('username')
